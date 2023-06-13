@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/models/webtoon_detail_model.dart';
 import 'package:toonflix/models/webtoon_episode_model.dart';
 import 'package:toonflix/services/api_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -26,6 +27,11 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
     webtoon = APIService.getToonByID(widget.id);
     episodes = APIService.getLatestEpisodesByID(widget.id);
+  }
+
+  onButtonTap() async {
+    final url = Uri.parse("https://google.com");
+    await launchUrl(url);
   }
 
   @override
