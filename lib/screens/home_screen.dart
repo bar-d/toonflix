@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:toonflix/models/webtoon_model.dart';
+import 'package:toonflix/services/api_service.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  final Future<List<WebtoonModel>> webtoons = APIService.getTodaysToons();
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  // Constructor
+  HomeScreen({super.key});
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +22,24 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 24,
           ),
         ),
+      ),
+      body: FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                var webtoon = snapshot.data![index];
+                return Text(webtoon.title);
+              },
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+        future: webtoons,
       ),
     );
   }
