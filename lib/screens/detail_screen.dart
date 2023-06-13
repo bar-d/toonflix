@@ -37,6 +37,12 @@ class _DetailScreenState extends State<DetailScreen> {
         elevation: 2,
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.favorite_outline_outlined),
+          )
+        ],
         title: Text(
           widget.title,
           style: const TextStyle(
